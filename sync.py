@@ -5,7 +5,7 @@ from datetime import datetime
 db = mysql.connector.connect(
     host="localhost",
     user="root",
-    password="harshith",
+    password="your_password",//password bruh!!
     database="cp_grind"
 )
 cursor = db.cursor(buffered=True)
