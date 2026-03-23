@@ -1,0 +1,22 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #fff; color: #111; font-family: 'IM Fell English', serif; text-align: center; padding: 40px 20px; }
+h1 { font-size: 1.8rem; font-weight: 400; margin-bottom: 6px; }
+.sub { font-family: 'Space Mono', monospace; font-size: 11px; letter-spacing: 3px; color: #777; margin-bottom: 36px; }
+#stats { display: flex; justify-content: center; gap: 16px; margin-bottom: 24px; }
+.card { border: 1px solid #111; padding: 24px 28px; min-width: 110px; }
+.easy { border-left: 5px solid #111; }
+.medium { border-left: 5px solid #777; }
+.hard { border-left: 5px solid #ccc; }
+.num { display: block; font-size: 2.2rem; margin-bottom: 4px; }
+.label { font-family: 'Space Mono', monospace; font-size: 10px; color: #666; }
+#rank-box { border: 1px solid #111; display: inline-block; padding: 16px 32px; font-family: 'Space Mono', monospace; font-size: 12px; line-height: 2; color: #666; }
+#rank-box strong { color: #111; }
+#tabs { display: flex; justify-content: center; gap: 8px; margin-bottom: 24px; }
+.tab { font-family: 'Space Mono', monospace; font-size: 11px; padding: 8px 16px; border: 1px solid #111; background: #fff; cursor: pointer; }
+.tab.active { background: #111; color: #fff; }
+.tab:hover { background: #f5f5f5; }
+.tab.active:hover { background: #111; }
+
+table { margin: 0 auto; border-collapse: collapse; font-family: 'Space Mono', monospace; font-size: 12px; }
+th, td { border: 1px solid #111; padding: 8px 12px; text-align: left; }
+th { background: #111; color: #fff; }
