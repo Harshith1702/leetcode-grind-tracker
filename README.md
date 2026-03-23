@@ -48,19 +48,20 @@ Frontend (HTML + JS)
 ```
 cp-grind-tracker/
 
-app.js
-index.html
-style.css
+frontend/
+  ├── app.js
+  ├── index.html
+  ├── style.css
 
-fetch_views.php
-sync.py
+backend/
+  ├── fetch_views.php
+  ├── sync.py
 
 database/
   ├── schemas.sql
   ├── views.sql
   ├── queries.sql
 
-README.md
 ```
 
 ---
@@ -105,7 +106,10 @@ Import:
 
 ### 3. Configure database credentials
 
-Update in `sync.py` and `fetch_views.php`:
+Update in:
+
+- backend/sync.py  
+- backend/fetch_views.php  
 
 ```
 host = localhost
@@ -117,13 +121,15 @@ database = cp_grind
 ### 4. Run sync script
 
 ```
-python sync.py
+python backend/sync.py
 ```
 
 ### 5. Start server (XAMPP / Apache)
 
+Open in browser:
+
 ```
-http://localhost/cp-grind-tracker/index.html
+http://localhost/cp-grind-tracker/frontend/index.html
 ```
 
 ---
