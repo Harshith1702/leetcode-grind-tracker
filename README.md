@@ -1,123 +1,166 @@
-# CP Grind Tracker 
+# ⚡ CP Grind Tracker
 
-I got tired of not knowing where I was dying on LeetCode. So I built a database that tracks every submission, shows my weak topics, and tells me if my streak is alive or dead.
+A full-stack competitive programming tracker that syncs LeetCode data into a MySQL database and visualizes performance through a web dashboard.
 
-319 problems in. Still suffering. But at least now it's documented.
+---
 
-## How It Works
-```mermaid
-flowchart LR
-  A[LeetCode API] --> B[sync.py]
-  B --> C[(cp_grind\nMySQL)]
-  C --> D[Views]
-  D --> E[my_performance]
-  D --> F[weak_topics]
-  D --> G[difficulty_stats]
-  D --> H[platform_stats]
-  D --> I[streak_history]
+## 🚀 Overview
+
+CP Grind Tracker started as a DBMS project and evolved into a full-stack system combining data engineering, backend APIs, and frontend visualization.
+
+It helps track:
+- Total solved problems
+- Weak topics
+- Difficulty distribution
+- Daily solving streak
+
+---
+
+## 🧠 Features
+
+- 📊 Difficulty-wise statistics (Easy / Medium / Hard)
+- 📉 Weak topic analysis based on accuracy
+- 📅 Daily streak tracking
+- 🧾 Submission history viewer
+- 🔄 Automated sync using Python
+- ⚠️ Handles API rate limits and failures safely
+
+---
+
+## 🏗️ Architecture
+
+```
+LeetCode API
+     ↓
+sync.py (Python)
+     ↓
+MySQL (cp_grind)
+     ↓
+fetch_views.php
+     ↓
+Frontend (HTML + JS)
 ```
 
-## ER Diagram
-```mermaid
-erDiagram
-  platforms {
-    int id PK
-    varchar name
-    varchar url
-  }
-  problems {
-    int id PK
-    int platform_id FK
-    varchar name
-    enum difficulty
-    varchar topic
-    varchar link
-  }
-  submissions {
-    int id PK
-    int problem_id FK
-    enum verdict
-    int attempts
-    int time_ms
-    datetime solved_at
-  }
-  daily_log {
-    int id PK
-    date log_date
-    int solved_count
-    boolean streak_alive
-  }
+---
 
-  platforms ||--o{ problems : "hosts"
-  problems ||--o{ submissions : "has"
+## 📁 Project Structure
+
+```
+cp-grind-tracker/
+
+app.js
+index.html
+style.css
+
+fetch_views.php
+sync.py
+
+database/
+  ├── schemas.sql
+  ├── views.sql
+  ├── queries.sql
+
+README.md
 ```
 
-## Tables
+---
 
-| Table | What It Stores |
-|-------|---------------|
-| platforms | LeetCode, CodeChef, Codeforces |
-| problems | Every problem I've touched |
-| submissions | Every attempt — AC, WA, TLE, MLE |
-| daily_log | How many I solved each day, streak alive or dead |
+## ⚙️ Tech Stack
 
-## Views
+- Backend: Python, PHP  
+- Database: MySQL  
+- Frontend: HTML, CSS, JavaScript  
+- API: LeetCode (via alfa-leetcode-api)
 
-| View | What It Shows |
-|------|--------------|
-| my_performance | Full history, latest first |
-| weak_topics | Topics by accuracy — worst first. Hurts. |
-| platform_stats | Win rate per platform |
-| difficulty_stats | Easy / Medium / Hard breakdown |
-| streak_history | Day by day grind log |
+---
 
-## How To Run
+## 🔄 Data Pipeline
 
-**1. Setup the Database**
-```sql
--- Open MySQL Workbench, run schemas.sql then views.sql
+- Fetches recent submissions (last 50)
+- Inserts into normalized database schema
+- Uses SQL views for analytics
+- Fetches accurate total solved separately from profile API
+- Includes retry logic for API rate limits (429)
+
+---
+
+## 🧪 Setup Instructions
+
+### 1. Clone repository
+
+```
+git clone https://github.com/Harshith1702/cp-grind-tracker.git
+cd cp-grind-tracker
 ```
 
-**2. Install Dependencies**
+### 2. Setup MySQL database
+
 ```
-pip install requests mysql-connector-python
+CREATE DATABASE cp_grind;
 ```
 
-**3. Add Your MySQL Password in sync.py**
-```python
-password="your_password_here"
+Import:
+- schemas.sql
+- views.sql
+
+### 3. Configure database credentials
+
+Update in `sync.py` and `fetch_views.php`:
+
+```
+host = localhost
+user = root
+password = your_password
+database = cp_grind
 ```
 
-**4. Sync Your LeetCode Data**
+### 4. Run sync script
+
 ```
 python sync.py
 ```
 
-**5. See Your Data**
-```sql
-mysql -u root -p
-USE cp_grind;
-SELECT * FROM my_performance;
-SELECT * FROM weak_topics;
-SELECT * FROM difficulty_stats;
-SELECT * FROM platform_stats;
-SELECT * FROM streak_history;
-```
+### 5. Start server (XAMPP / Apache)
 
-## Project Files
 ```
-cp-grind-tracker/
-├── schemas.sql   — 4 tables, foreign keys, sample data
-├── views.sql     — 5 views with joins and aggregations
-├── queries.sql   — queries to run during demo
-└── sync.py       — hits LeetCode API, dumps into MySQL
+http://localhost/cp-grind-tracker/index.html
 ```
-
-## Stack
-
-- MySQL 8.0
-- Python 3
-- alfa-leetcode-api
 
 ---
-Built by [Harshith](https://github.com/Harshith1702) 
+
+## ⚠️ Limitations
+
+- API only returns last 50 submissions  
+- Full historical reconstruction is not possible  
+- Depends on external API availability and rate limits  
+
+---
+
+## 🔮 Future Improvements
+
+- Full submission history via pagination  
+- Charts (Chart.js)  
+- Multi-platform support (Codeforces, CodeChef)  
+- Better topic classification  
+- User authentication  
+
+---
+
+## 💡 Motivation
+
+I built this to understand where I was weak in competitive programming instead of just counting solved problems.
+
+Now every mistake is tracked and analyzed.
+
+---
+
+## 👤 Author
+
+Harshith  
+CSE Undergraduate | Backend & Systems Enthusiast  
+
+---
+
+## ⭐ If you like this project
+
+Star it or build your own improved version.
